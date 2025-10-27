@@ -1,9 +1,8 @@
 # Sportska Liga - Team & Player Management
 
 ## Autori
-- Student A - Kreirao Team model, rute i view lista timova
-- Student B - Kreirao Player model, rute i view lista igrača
-- A + B zajednički - Akcija promocije tima i roster stranica
+- Ibrahim Bišić
+- Amar Ribo
 
 ## Opis Aplikacije
 Mini MVC Spring Boot aplikacija za upravljanje sportskom ligom sa timovima i igračima.
@@ -50,17 +49,8 @@ Jedan tim ima više igrača. Svaki igrač pripada jednom timu.
 - Java 17
 - In-memory data storage (bez baze podataka)
 
-## Pokretanje
-\`\`\`bash
-./mvnw spring-boot:run
-\`\`\`
-
 Aplikacija će biti dostupna na: `http://localhost:8080`
 
-## Screenshot Aplikacije
-
-### Lista Timova
-![Teams List](screenshot-teams.png)
 
 ### Lista Igrača
 ![Players List](screenshot-players.png)
