@@ -4,9 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import unze.ptf.sportsleague.data.LeagueData;
+import unze.ptf.sportsleague.model.Player;
 import unze.ptf.sportsleague.model.Team;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class LeagueController {
@@ -25,9 +27,30 @@ public class LeagueController {
 
     // Ruta za prikaz svih igrača
     @GetMapping("/players")
-    public String showPlayers(Model model) {
-        model.addAttribute("players", LeagueData.getPlayers());
+    public String showPlayers(@RequestParam(required = false) String position, Model model) {
+        List<Player> allPlayers = LeagueData.getPlayers();
+        List<Player> filteredPlayers;
+
+        // Filter players by position if parameter is provided
+        if (position != null && !position.isEmpty()) {
+            filteredPlayers = allPlayers.stream()
+                    .filter(player -> player.getPosition().equals(position))
+                    .collect(Collectors.toList());
+        } else {
+            filteredPlayers = allPlayers;
+        }
+
+        // Get all unique positions for filter buttons
+        List<String> positions = allPlayers.stream()
+                .map(Player::getPosition)
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
+
+        model.addAttribute("players", filteredPlayers);
         model.addAttribute("teams", LeagueData.getTeams());
+        model.addAttribute("positions", positions);
+        model.addAttribute("selectedPosition", position);
         return "players";
     }
 

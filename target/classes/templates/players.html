@@ -39,6 +39,44 @@
             margin-bottom: 32px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
+
+        .filter-section {
+            background: rgba(255,255,255,0.95);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .filter-section h3 {
+            margin: 0 0 16px 0;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #764ba2;
+        }
         table { 
             border-collapse: collapse; 
             width: 100%; 
@@ -89,6 +127,21 @@
 
     <h2>⚽ Igrači Sportske Lige</h2>
 
+    <!-- Added filter section -->
+    <div class="filter-section">
+        <h3>Filtriraj po poziciji:</h3>
+        <div class="filter-buttons">
+            <a href="/players" class="filter-btn" th:classappend="${selectedPosition == null} ? 'active' : ''">
+                Svi Igrači
+            </a>
+            <a th:each="pos : ${positions}"
+               th:href="@{/players(position=${pos})}"
+               class="filter-btn"
+               th:classappend="${selectedPosition == pos} ? 'active' : ''"
+               th:text="${pos}">
+            </a>
+        </div>
+    </div>
     <table>
         <thead>
         <tr>
