@@ -41,8 +41,8 @@ Jedan tim ima više igrača. Svaki igrač pripada jednom timu.
 - `/teams/roster/{id}` - Prikaz roster-a tima sa detaljima
 
 ### POST Rute
-- `/teams/promote/{id}` - Akcija promocije tima (dodaje +1 pobjedu)
-
+- `/teams/promote/{id}` - Akcija dodavanja pobjede
+- `/teams/lose/{id}` - Akcija dodavanja poraza
 ## Tehnologije
 - Spring Boot 3.4.1
 - Thymeleaf
