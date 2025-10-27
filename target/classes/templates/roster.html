@@ -69,6 +69,9 @@
             color: #212529;
             font-weight: 600;
         }
+        .info-value:hover{
+            color: #646475;
+        }
         .promote-btn {
             background: #28a745;
             color: white;
@@ -127,7 +130,7 @@
         }
         .jersey-number {
             font-weight: bold;
-            color: #764ba2;
+            color:#4b4ca2;
             font-size: 1.2em;
         }
         .empty-roster {
@@ -136,6 +139,32 @@
             text-align: center;
             border-radius: 8px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+        .Btn-win-lose {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+            justify-content: space-around;
+
+        }
+        .promote-btn-lose {
+            background: #a72828;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        .promote-btn-lose:hover {
+            background: #882121;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .players-age {
+            font-weight: bold;
         }
     </style>
 </head>
@@ -175,10 +204,17 @@
                 <div class="info-value" th:text="${#numbers.formatDecimal(team.winPercentage, 1, 1)} + '%'"></div>
             </div>
         </div>
-
+        <div class = "Btn-win-lose">
+        <div class="Btn-win">
         <form th:action="@{/teams/promote/{id}(id=${team.id})}" method="post">
-            <button type="submit" class="promote-btn">🏆 Promoviši Tim (+1 Pobjeda)</button>
-        </form>
+            <button type="submit" class="promote-btn">🏆  Pobjeda</button>
+        </form></div>
+        <div class = "Btn-lose">
+            <form th:action="@{/teams/lose/{id}(id=${team.id})}" method="post">
+                <button type="submit" class="promote-btn-lose">❌  Poraz</button>
+            </form>
+        </div>
+        </div>
     </div>
 
     <h3>👥 Roster Igrača</h3>
@@ -200,7 +236,7 @@
                 <td th:text="${player.name}"></td>
                 <td><span class="position-badge" th:text="${player.position}"></span></td>
                 <td class="jersey-number" th:text="${player.jerseyNumber}"></td>
-                <td th:text="${player.age}"></td>
+                <td class="players-age" th:text="${player.age}"></td>
             </tr>
             </tbody>
         </table>

@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>unze.ptf</groupId>
-    <artifactId>battle-arena</artifactId>
+    <artifactId>Sports-league</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>battle-arena</name>
-    <description>battle-arena</description>
+    <name>Sports-league</name>
+    <description>Sports-league</description>
     <url/>
     <licenses>
         <license/>

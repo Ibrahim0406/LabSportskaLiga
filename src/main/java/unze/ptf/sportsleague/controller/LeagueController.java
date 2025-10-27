@@ -54,4 +54,17 @@ public class LeagueController {
         }
         return "roster";
     }
+    // POST ruta za dodavanje poraza timu
+    @PostMapping("/teams/lose/{id}")
+    public String addLossToTeam(@PathVariable Long id, Model model) {
+        Team team = LeagueData.getTeamById(id);
+        if (team != null) {
+            team.setLosses(team.getLosses() + 1);
+            model.addAttribute("team", team);
+            model.addAttribute("message", "Tim " + team.getName() + " je zabilježio novi poraz.");
+            model.addAttribute("players", LeagueData.getPlayersByTeamId(id));
+        }
+        return "roster";
+    }
+
 }
