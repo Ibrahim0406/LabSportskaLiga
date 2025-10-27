@@ -50,10 +50,3 @@ Jedan tim ima više igrača. Svaki igrač pripada jednom timu.
 - In-memory data storage (bez baze podataka)
 
 Aplikacija će biti dostupna na: `http://localhost:8080`
-
-
-### Lista Igrača
-![Players List](screenshot-players.png)
-
-### Roster Tima (Akcija)
-![Team Roster](screenshot-roster.png)
