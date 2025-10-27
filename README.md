@@ -49,4 +49,5 @@ Jedan tim ima više igrača. Svaki igrač pripada jednom timu.
 - Java 17
 - In-memory data storage (bez baze podataka)
 
-Aplikacija će biti dostupna na: `http://localhost:8080`
+Aplikacija će biti dostupna na: `http://localhost:8080/teams`
+`http://localhost:8080/players`
