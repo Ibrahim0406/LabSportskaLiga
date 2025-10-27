@@ -54,11 +54,11 @@ Aplikacija će biti dostupna na: `http://localhost:8080`
 ## Screenshot Aplikacije
 
 ### Lista Igrača
-<img width="1260" height="858" alt="Igraci" src="https://github.com/user-attachments/assets/27729873-b649-4ee4-8176-f7bc6e21c70e" />
+<img width="1200" height="800" alt="Igraci" src="https://github.com/user-attachments/assets/27729873-b649-4ee4-8176-f7bc6e21c70e" />
 
 ### Lista Timova
-<img width="1277" height="860" alt="Timovi" src="https://github.com/user-attachments/assets/d767639d-5ee0-48d7-9c17-412041089c85" />
+<img width="1200" height="800" alt="Timovi" src="https://github.com/user-attachments/assets/d767639d-5ee0-48d7-9c17-412041089c85" />
 
 ### Roster Tima (Akcija)
-<img width="1277" height="861" alt="Roster" src="https://github.com/user-attachments/assets/3901cb89-29db-4445-b389-55f67e719c23" />
+<img width="1200" height="800" alt="Roster" src="https://github.com/user-attachments/assets/3901cb89-29db-4445-b389-55f67e719c23" />
 
