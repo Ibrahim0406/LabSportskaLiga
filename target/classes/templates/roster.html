@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Roster - Sportska Liga</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        nav { 
+            background: rgba(255,255,255,0.95);
+            padding: 16px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 32px;
+            border-radius: 8px;
+        }
+        nav a { 
+            margin-right: 24px; 
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #764ba2;
+        }
+        .team-header {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            margin-bottom: 32px;
+        }
+        .team-header h2 {
+            color: #667eea;
+            margin: 0 0 16px 0;
+            font-size: 2.5em;
+            text-shadow: none;
+        }
+        .team-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .info-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .info-label {
+            font-size: 0.85em;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .info-value {
+            font-size: 1.2em;
+            color: #212529;
+            font-weight: 600;
+        }
+        .promote-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        .promote-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        h3 {
+            color: white;
+            font-size: 1.8em;
+            margin-bottom: 24px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        table { 
+            border-collapse: collapse; 
+            width: 100%; 
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+        th, td { 
+            padding: 16px; 
+            text-align: left;
+        }
+        th { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        tr:hover {
+            background: #e9ecef;
+        }
+        .position-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .jersey-number {
+            font-weight: bold;
+            color: #764ba2;
+            font-size: 1.2em;
+        }
+        .empty-roster {
+            background: white;
+            padding: 48px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav>
+        <a href="/teams">Timovi</a>
+        <a href="/players">Igrači</a>
+    </nav>
+
+    <div class="team-header" th:if="${team != null}">
+        <h2 th:text="${team.name}">Tim</h2>
+        
+        <div class="team-info">
+            <div class="info-item">
+                <div class="info-label">Grad</div>
+                <div class="info-value" th:text="${team.city}"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Osnovan</div>
+                <div class="info-value" th:text="${team.founded}"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Stadion</div>
+                <div class="info-value" th:text="${team.stadium}"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Pobjede</div>
+                <div class="info-value" th:text="${team.wins}"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Porazi</div>
+                <div class="info-value" th:text="${team.losses}"></div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">% Pobjeda</div>
+                <div class="info-value" th:text="${#numbers.formatDecimal(team.winPercentage, 1, 1)} + '%'"></div>
+            </div>
+        </div>
+
+        <form th:action="@{/teams/promote/{id}(id=${team.id})}" method="post">
+            <button type="submit" class="promote-btn">🏆 Promoviši Tim (+1 Pobjeda)</button>
+        </form>
+    </div>
+
+    <h3>👥 Roster Igrača</h3>
+
+    <div th:if="${players != null and !players.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ime</th>
+                <th>Pozicija</th>
+                <th>Broj Dresa</th>
+                <th>Godine</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="player : ${players}">
+                <td th:text="${player.id}"></td>
+                <td th:text="${player.name}"></td>
+                <td><span class="position-badge" th:text="${player.position}"></span></td>
+                <td class="jersey-number" th:text="${player.jerseyNumber}"></td>
+                <td th:text="${player.age}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${players == null or players.isEmpty()}" class="empty-roster">
+        <h3 style="color: #6c757d; text-shadow: none;">Nema igrača u ovom timu</h3>
+    </div>
+</div>
+</body>
+</html>
