@@ -41,13 +41,24 @@ Jedan tim ima više igrača. Svaki igrač pripada jednom timu.
 - `/teams/roster/{id}` - Prikaz roster-a tima sa detaljima
 
 ### POST Rute
-- `/teams/promote/{id}` - Akcija promocije tima (dodaje +1 pobjedu)
-
+- `/teams/promote/{id}` - Akcija dodavanja pobjede
+- `/teams/lose/{id}` - Akcija dodavanja poraza
 ## Tehnologije
 - Spring Boot 3.4.1
 - Thymeleaf
 - Java 17
 - In-memory data storage (bez baze podataka)
 
-Aplikacija će biti dostupna na: `http://localhost:8080/teams`
-`http://localhost:8080/players`
+Aplikacija će biti dostupna na: `http://localhost:8080`
+
+## Screenshot Aplikacije
+
+### Lista Igrača
+<img width="1200" height="800" alt="Igraci" src="https://github.com/user-attachments/assets/27729873-b649-4ee4-8176-f7bc6e21c70e" />
+
+### Lista Timova
+<img width="1200" height="800" alt="Timovi" src="https://github.com/user-attachments/assets/d767639d-5ee0-48d7-9c17-412041089c85" />
+
+### Roster Tima (Akcija)
+<img width="1200" height="800" alt="Roster" src="https://github.com/user-attachments/assets/3901cb89-29db-4445-b389-55f67e719c23" />
+
