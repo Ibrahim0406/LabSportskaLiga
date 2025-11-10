@@ -4,8 +4,8 @@
     <meta charset="UTF-8"/>
     <title>Roster - Sportska Liga</title>
     <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -16,15 +16,15 @@
             margin: 0 auto;
             padding: 24px;
         }
-        nav { 
+        nav {
             background: rgba(255,255,255,0.95);
             padding: 16px 24px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin-bottom: 32px;
             border-radius: 8px;
         }
-        nav a { 
-            margin-right: 24px; 
+        nav a {
+            margin-right: 24px;
             text-decoration: none;
             color: #667eea;
             font-weight: 600;
@@ -94,19 +94,19 @@
             margin-bottom: 24px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        table { 
-            border-collapse: collapse; 
-            width: 100%; 
+        table {
+            border-collapse: collapse;
+            width: 100%;
             background: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0,0,0,0.2);
         }
-        th, td { 
-            padding: 16px; 
+        th, td {
+            padding: 16px;
             text-align: left;
         }
-        th { 
+        th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             font-weight: 600;
@@ -173,11 +173,12 @@
     <nav>
         <a href="/teams">Timovi</a>
         <a href="/players">Igrači</a>
+        <a href="/coaches">Treneri</a>
     </nav>
 
     <div class="team-header" th:if="${team != null}">
         <h2 th:text="${team.name}">Tim</h2>
-        
+
         <div class="team-info">
             <div class="info-item">
                 <div class="info-label">Grad</div>
@@ -205,15 +206,15 @@
             </div>
         </div>
         <div class = "Btn-win-lose">
-        <div class="Btn-win">
-        <form th:action="@{/teams/promote/{id}(id=${team.id})}" method="post">
-            <button type="submit" class="promote-btn">🏆  Pobjeda</button>
-        </form></div>
-        <div class = "Btn-lose">
-            <form th:action="@{/teams/lose/{id}(id=${team.id})}" method="post">
-                <button type="submit" class="promote-btn-lose">❌  Poraz</button>
-            </form>
-        </div>
+            <div class="Btn-win">
+                <form th:action="@{/teams/promote/{id}(id=${team.id})}" method="post">
+                    <button type="submit" class="promote-btn">🏆  Pobjeda</button>
+                </form></div>
+            <div class = "Btn-lose">
+                <form th:action="@{/teams/lose/{id}(id=${team.id})}" method="post">
+                    <button type="submit" class="promote-btn-lose">❌  Poraz</button>
+                </form>
+            </div>
         </div>
     </div>
 

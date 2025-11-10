@@ -26,7 +26,10 @@ public class MainController {
     // Team routes
     @GetMapping("/teams")
     public String showTeams(Model model) {
-        model.addAttribute("teams", teamService.getAllTeams());
+        System.out.println("[v0] Loading teams...");
+        var teams = teamService.getAllTeams();
+        System.out.println("[v0] Found " + teams.size() + " teams");
+        model.addAttribute("teams", teams);
         return "teams";
     }
 
@@ -39,7 +42,10 @@ public class MainController {
     // Player routes
     @GetMapping("/players")
     public String showPlayers(Model model) {
-        model.addAttribute("players", playerService.getAllPlayers());
+        System.out.println("[v0] Loading players...");
+        var players = playerService.getAllPlayers();
+        System.out.println("[v0] Found " + players.size() + " players");
+        model.addAttribute("players", players);
         return "players";
     }
 
@@ -63,8 +69,19 @@ public class MainController {
     // Coach routes
     @GetMapping("/coaches")
     public String showCoaches(Model model) {
-        model.addAttribute("coaches", coachService.getAllCoaches());
+        System.out.println("[v0] Loading coaches...");
+        var coaches = coachService.getAllCoaches();
+        System.out.println("[v0] Found " + coaches.size() + " coaches");
+        model.addAttribute("coaches", coaches);
+        model.addAttribute("coach", null);
+        model.addAttribute("teams", teamService.getAllTeams());
+        return "coaches";
+    }
+
+    @GetMapping("/coaches/new")
+    public String newCoach(Model model) {
         model.addAttribute("coach", new Coach());
+        model.addAttribute("coaches", coachService.getAllCoaches());
         model.addAttribute("teams", teamService.getAllTeams());
         return "coaches";
     }

@@ -4,8 +4,8 @@
     <meta charset="UTF-8"/>
     <title>Igrači - Sportska Liga</title>
     <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -16,15 +16,15 @@
             margin: 0 auto;
             padding: 24px;
         }
-        nav { 
+        nav {
             background: rgba(255,255,255,0.95);
             padding: 16px 24px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin-bottom: 32px;
             border-radius: 8px;
         }
-        nav a { 
-            margin-right: 24px; 
+        nav a {
+            margin-right: 24px;
             text-decoration: none;
             color: #667eea;
             font-weight: 600;
@@ -33,7 +33,7 @@
         nav a:hover {
             color: #764ba2;
         }
-        h2 { 
+        h2 {
             color: white;
             font-size: 2.5em;
             margin-bottom: 32px;
@@ -77,19 +77,19 @@
             color: white;
             border-color: #764ba2;
         }
-        table { 
-            border-collapse: collapse; 
-            width: 100%; 
+        table {
+            border-collapse: collapse;
+            width: 100%;
             background: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 4px 16px rgba(0,0,0,0.2);
         }
-        th, td { 
-            padding: 16px; 
+        th, td {
+            padding: 16px;
             text-align: left;
         }
-        th { 
+        th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             font-weight: 600;
@@ -121,8 +121,10 @@
 <body>
 <div class="container">
     <nav>
+        <!-- Dodao link za trenere u navigaciju -->
         <a href="/teams">Timovi</a>
         <a href="/players">Igrači</a>
+        <a href="/coaches">Treneri</a>
     </nav>
 
     <h2>⚽ Igrači Sportske Lige</h2>
@@ -160,11 +162,7 @@
             <td><span class="position-badge" th:text="${player.position}"></span></td>
             <td class="jersey-number" th:text="${player.jerseyNumber}"></td>
             <td th:text="${player.age}"></td>
-            <td>
-                <span th:each="team : ${teams}" 
-                      th:if="${team.id == player.teamId}"
-                      th:text="${team.name}"></span>
-            </td>
+            <td th:text="${player.team != null ? player.team.name : 'N/A'}"></td>
         </tr>
         </tbody>
     </table>
