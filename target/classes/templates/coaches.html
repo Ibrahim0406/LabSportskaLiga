@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treneri - Sports League</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        /* Ažurirao navigaciju da bude konzistentna sa ostalim stranicama */
+        nav {
+            background: rgba(255,255,255,0.95);
+            padding: 16px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 32px;
+            border-radius: 8px;
+        }
+        nav a {
+            margin-right: 24px;
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #764ba2;
+        }
+        h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 32px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .button_izmjeni{
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .button_izmjeni:hover{
+            background-color: #0069d9;
+        }
+        .button:hover {
+            background-color: #0062b3;
+        }
+        .button-danger {
+            background-color: #dc3545;
+        }
+        .button-danger:hover {
+            background-color: #c82333;
+        }
+        .button-success {
+            background-color: #30a728;
+        }
+        .button-success:hover {
+            background-color: #218838;
+        }
+        .button-secondary {
+            background-color: #6c757d;
+        }
+        .button-secondary:hover {
+            background-color: #545b62;
+        }
+        table {
+            width: 100%;
+            background-color: white;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        .nav {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        /* Dodao stilove za forme */
+        .form-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Zamijenio staru navigaciju sa novom konzistentnom -->
+    <nav>
+        <a href="/teams">Timovi</a>
+        <a href="/players">Igrači</a>
+        <a href="/coaches">Treneri</a>
+    </nav>
+
+    <h1>Lista Trenera</h1>
+
+    <!-- Dodao formu za dodavanje/izmenu trenera -->
+    <div class="form-section" th:if="${coach != null}">
+        <h2 th:text="${coach.id != null ? 'Izmijeni Trenera' : 'Dodaj Novog Trenera'}">Forma</h2>
+
+        <form th:action="${coach.id != null ? '/coaches/update/' + coach.id : '/coaches'}"
+              th:object="${coach}" method="post">
+            <div class="form-group">
+                <label for="name">Ime:</label>
+                <input type="text" id="name" th:field="*{name}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nationality">Nacionalnost:</label>
+                <input type="text" id="nationality" th:field="*{nationality}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Godine:</label>
+                <input type="number" id="age" th:field="*{age}" min="20" max="80">
+            </div>
+
+            <div class="form-group">
+                <label for="experienceYears">Godine Iskustva:</label>
+                <input type="number" id="experienceYears" th:field="*{experienceYears}" min="0" max="60">
+            </div>
+
+            <div class="form-group">
+                <label for="specialization">Specijalizacija:</label>
+                <input type="text" id="specialization" th:field="*{specialization}"
+                       placeholder="npr. Ofanziva, Defanziva, Fizička priprema">
+            </div>
+
+            <button type="submit" class="button">Sačuvaj</button>
+            <a href="/coaches" class="button button-secondary">Odustani</a>
+        </form>
+    </div>
+
+    <a href="/coaches/new" class="button button-success" th:if="${coach == null}">Dodaj Novog Trenera</a>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ime</th>
+            <th>Nacionalnost</th>
+            <th>Godine</th>
+            <th>Godine Iskustva</th>
+            <th>Specijalizacija</th>
+            <th>Akcije</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="coach : ${coaches}">
+            <td th:text="${coach.id}">1</td>
+            <td th:text="${coach.name}">Ime Trenera</td>
+            <td th:text="${coach.nationality}">Bosna i Hercegovina</td>
+            <td th:text="${coach.age}">45</td>
+            <td th:text="${coach.experienceYears}">15</td>
+            <td th:text="${coach.specialization}">Ofanziva</td>
+            <td>
+                <div class="actions">
+                    <a th:href="@{/coaches/edit/{id}(id=${coach.id})}" class="button_izmjeni">Izmijeni</a>
+                    <a th:href="@{/coaches/delete/{id}(id=${coach.id})}" class="button button-danger"
+                       onclick="return confirm('Da li ste sigurni da želite obrisati ovog trenera?')">Obriši</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
