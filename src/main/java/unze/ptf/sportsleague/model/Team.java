@@ -1,107 +1,52 @@
 package unze.ptf.sportsleague.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "teams")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Team {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String city;
-    private int founded;
+
+    private String founded;
+
     private String stadium;
-    private int wins;
-    private int losses;
-    private List<Long> playerIds;
 
-    public Team() {
-        this.playerIds = new ArrayList<>();
+    // One-to-Many relationship with Player
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Player> players = new ArrayList<>();
+
+    // Many-to-One relationship with Coach (novi entitet)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "coach_id")
+    private Coach coach;
+
+    public void addPlayer(Player player) {
+        players.add(player);
+        player.setTeam(this);
     }
 
-    public Team(Long id, String name, String city, int founded, String stadium) {
-        this.id = id;
-        this.name = name;
-        this.city = city;
-        this.founded = founded;
-        this.stadium = stadium;
-        this.wins = 0;
-        this.losses = 0;
-        this.playerIds = new ArrayList<>();
-    }
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public int getFounded() {
-        return founded;
-    }
-
-    public void setFounded(int founded) {
-        this.founded = founded;
-    }
-
-    public String getStadium() {
-        return stadium;
-    }
-
-    public void setStadium(String stadium) {
-        this.stadium = stadium;
-    }
-
-    public int getWins() {
-        return wins;
-    }
-
-    public void setWins(int wins) {
-        this.wins = wins;
-    }
-
-    public int getLosses() {
-        return losses;
-    }
-
-    public void setLosses(int losses) {
-        this.losses = losses;
-    }
-
-    public double getWinPercentage() {
-        int totalGames = wins + losses;
-        if (totalGames == 0) {
-            return 0.0;
-        }
-        return (wins * 100.0) / totalGames;
-    }
-
-    public List<Long> getPlayerIds() {
-        return playerIds;
-    }
-
-    public void setPlayerIds(List<Long> playerIds) {
-        this.playerIds = playerIds;
-    }
-
-    public void addPlayer(Long playerId) {
-        this.playerIds.add(playerId);
+    public void removePlayer(Player player) {
+        players.remove(player);
+        player.setTeam(null);
     }
 }
