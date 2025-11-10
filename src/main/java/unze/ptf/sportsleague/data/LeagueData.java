@@ -1,4 +1,4 @@
-package unze.ptf.sportsleague.data;
+/*package unze.ptf.sportsleague.data;
 
 import unze.ptf.sportsleague.model.Player;
 import unze.ptf.sportsleague.model.Team;
@@ -262,3 +262,4 @@ public class LeagueData {
                 .orElse(null);
     }
 }
+*/
